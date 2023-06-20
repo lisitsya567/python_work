@@ -79,7 +79,7 @@ def add():
     refreshTable()
 
 def reset():
-    decision = messagebox.askquestion("Warning!", "Delete all data?")
+    decision = messagebox.askquestion("Warning!!", "Delete all data?")
     if decision != "yes":
         return
     else:
@@ -118,10 +118,17 @@ def select():
     try:
         selected_item = my_tree.selection()[0]
         studid = str(my_tree.item(selected_item)['values'][0])
-        fname = str(my_tree.item(selected_item)['values'][1])
+        fname: str = str(my_tree.item(selected_item)['values'][1])
         lname = str(my_tree.item(selected_item)['values'][2])
         address = str(my_tree.item(selected_item)['values'][3])
         phone = str(my_tree.item(selected_item)['values'][4])
+
+        setph(studid,1)
+        setph(studid,2)
+        setph(studid,3)
+        setph(studid,4)
+        setph(studid,5)
+
     except:
         messagebox.showinfo("Error", "Please select a data row")
 
@@ -134,7 +141,12 @@ def search():
 
     conn = connection()
     cursor = conn.cursor()
-    cursor.execute("SELECT * FROM students WHERE STUDID='"+studid+"' or FNAME='"+fname+"' or LNAME='"+lname+"' or ADDRESS='"+address+"' or PHONE='"+phone+"' ")
+    cursor.execute("SELECT * FROM students WHERE STUDID='"+
+    studid+"' or FNAME='"+
+    fname+"' or LNAME='"+
+    lname+"' or ADDRESS='"+
+    address+"' or PHONE='"+
+    phone+"' ")
 
     try:
         result = cursor.fetchall()
@@ -187,6 +199,18 @@ def update():
 label = Label(root, text="Student Registration System (CRED MATRIX)", font=('Arial Bold', 30))
 label.grid(row=0, column=0, columnspan=8, rowspan=2, padx=50, pady=40)
 
+studidLabel = Label(root, text="Studid ID", font=('Arial', 15))
+fnameLabel = Label(root, text="Firstname", font=('Arial', 15))
+lnameLabel = Label(root, text="Lastname", font=('Arial', 15))
+addressLabel = Label(root, text="Address", font=('Arial', 15))
+phoneLabel = Label(root, text="Phone", font=('Arial', 15))
+
+studidLabel.grid(row=3, column=0, columnspan=1, padx=50, pady=5)
+fnameLabel.grid(row=4, column=0, columnspan=1, padx=50, pady=5)
+lnameLabel.grid(row=5, column=0, columnspan=1, padx=50, pady=5)
+addressLabel.grid(row=6, column=0, columnspan=1, padx=50, pady=5)
+phoneLabel.grid(row=7, column=0, columnspan=1, padx=50, pady=5)
+
 studidEntry = Entry(root, width=55, bd=5, font=('Arial', 15), textvariable=ph1)
 fnameEntry = Entry(root, width=55, bd=5, font=('Arial', 15), textvariable=ph2)
 lnameEntry = Entry(root, width=55, bd=5, font=('Arial', 15), textvariable=ph3)
@@ -194,36 +218,36 @@ addressEntry = Entry(root, width=55, bd=5, font=('Arial', 15), textvariable=ph4)
 phoneEntry = Entry(root, width=55, bd=5, font=('Arial', 15), textvariable=ph5)
 
 studidEntry.grid(row=3, column=1, columnspan=4, padx=5, pady=0)
-fnameEntry.grid(row=3, column=1, columnspan=4, padx=5, pady=0)
-lnameEntry.grid(row=3, column=1, columnspan=4, padx=5, pady=0)
-addressEntry.grid(row=3, column=1, columnspan=4, padx=5, pady=0)
-phoneEntry.grid(row=3, column=1, columnspan=4, padx=5, pady=0)
+fnameEntry.grid(row=4, column=1, columnspan=4, padx=5, pady=0)
+lnameEntry.grid(row=5, column=1, columnspan=4, padx=5, pady=0)
+addressEntry.grid(row=6, column=1, columnspan=4, padx=5, pady=0)
+phoneEntry.grid(row=7, column=1, columnspan=4, padx=5, pady=0)
 
 addBtn = Button(
     root, text="Add", padx=65, pady=25, width=10,
     bd=5, font=('Arial', 15), bg="#84F894", command=add)
 updateBtn = Button(
-    root, text="Add", padx=65, pady=25, width=10,
+    root, text="Update", padx=65, pady=25, width=10,
     bd=5, font=('Arial', 15), bg="#84E8F8", command=update)
 deleteBtn = Button(
-    root, text="Add", padx=65, pady=25, width=10,
+    root, text="Delete", padx=65, pady=25, width=10,
     bd=5, font=('Arial', 15), bg="#FF9999", command=delete)
 searchBtn = Button(
-    root, text="Add", padx=65, pady=25, width=10,
+    root, text="Search", padx=65, pady=25, width=10,
     bd=5, font=('Arial', 15), bg="#F4FE82", command=search)
 resetBtn = Button(
-    root, text="Add", padx=65, pady=25, width=10,
+    root, text="Reset", padx=65, pady=25, width=10,
     bd=5, font=('Arial', 15), bg="#F398FF", command=reset)
 selectBtn = Button(
-    root, text="Add", padx=65, pady=25, width=10,
+    root, text="Select", padx=65, pady=25, width=10,
     bd=5, font=('Arial', 15), bg="#EEEEEE", command=select)
 
-addBtn.grid(row=3, column=1, columnspan=4, padx=5, rowspan=2)
-updateBtn.grid(row=3, column=1, columnspan=4, padx=5, rowspan=2)
-deleteBtn.grid(row=3, column=1, columnspan=4, padx=5, rowspan=2)
-searchBtn.grid(row=3, column=1, columnspan=4, padx=5, rowspan=2)
-resetBtn.grid(row=3, column=1, columnspan=4, padx=5, rowspan=2)
-selectBtn.grid(row=3, column=1, columnspan=4, padx=5, rowspan=2)
+addBtn.grid(row=3, column=5, columnspan=1, rowspan=2)
+updateBtn.grid(row=5, column=5, columnspan=1, rowspan=2)
+deleteBtn.grid(row=7, column=5, columnspan=1, rowspan=2)
+searchBtn.grid(row=9, column=5, columnspan=1, rowspan=2)
+resetBtn.grid(row=11, column=5, columnspan=1, rowspan=2)
+selectBtn.grid(row=13, column=5, columnspan=1, rowspan=2)
 
 style = ttk.Style()
 style.configure("Treeview.Heading", font=('Arial Bold', 15))
